@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+    <h1 class='text-center'>
+        {% if music %}
+            All {{ genre }} Music
+        {% else %}
+            No music of this genre yet uploaded
+        {% endif %}
+    </h1>
+
+    {% if music %}
+        <div style="margin: auto; width: 1190px">
+            <div class="row mb-5">
+                {% for el in music %}
+                    <div class="card ml-3 mb-3" style="width: 18rem;">
+                        <!-- Image -->
+                        <img src="{{ el.link }}"
+                             class="card-img-top" alt="Cover Art" style="width: 287px; height: 300px; object-fit: cover">
+                        <div class="card-body" style="text-align: center;">
+                            <h4 class="card-text">{{ el.title }}</h4>
+                            <a href="{% url 'artist details' el.artist.id %}" class="card-text" style="font-size: 14px">{{ el.artist }}</a>
+                            <hr>
+                            <p class="card-text">{{ el.description|truncatechars:100 }}</p>
+                            <a href="{% url 'music details' el.id %}" class="btn btn-primary">See details</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class=" row d-flex justify-content-center align-content-center">
+            <a href="{% url 'music add' %}" class="btn btn-lg btn-secondary row align-self-baseline">
+                Add more!
+            </a>
+</div>
+        {% else %}
+        <div class=" row d-flex justify-content-center align-content-center">
+            <a href="{% url 'music add' %}" class="btn btn-lg btn-secondary row align-self-baseline">
+                Add
+            </a>
+</div>
+    {% endif %}
+{% endblock %}

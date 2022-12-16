@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+    <div class="d-flex">
+
+        {# Cover art #}
+        <div class="d-inline p-2 w-50">
+            <img src="{{ music.link }}" class="w-100 rounded mx-auto d-block" alt="{{ music.description }}"/>
+        </div>
+
+        <div class="d-inline p-2 w-50">
+
+            {# Title, type and artist heading #}
+            <a style="font-size: 25pt">{{ music.title }}|</a>
+            <a>{{ music.type }} by </a>
+            <a href="{% url 'artist details' owner_id %}">{{ owner_name }}</a>
+
+
+            {# Save form #}
+            <br>
+            <form action="{% url 'save a song' object.id %}" method="POST" style="vertical-align: center">
+            {% csrf_token %}
+
+            {% if post_is_liked %}
+
+                <button type="submit" name="blogpost_id" value="{{object.id}}" class="btn btn-primary" style="background-color: gray; border-color: gray">Remove</button>
+                    <a class="mt-2">Saves: {{ music.number_of_saves }}</a>
+
+            {% else %}
+
+                <button type="submit" name="blogpost_id" value="{{object.id}}" class="btn btn-primary">Save</button>
+                    <a class="mt-2">Saves: {{ music.number_of_saves }}</a>
+
+            {% endif %}
+            </form>
+
+            {# Description #}
+        {% if music.type != 'Single' %}
+            <hr>
+            <p class="mt-2">{{ music.description|linebreaks }}</p>
+            <hr>
+        {% else %}
+            <hr>
+            <h4>Lyrics: </h4>
+            <details>
+                    <summary style="list-style-type: ''">{{ music.description|truncatechars:100|linebreaksbr }}</summary>
+                    <li style="list-style-type: ''">{{ music.description|linebreaksbr }}</li>
+            </details>
+            <hr>
+        {% endif %}
+
+            {# Ratings #}
+            {% if comments %}
+                <p class="mt-2">Rating: {{ rating }}/10  </p>
+                {% else %}
+                <p class="mt-2">Rating: No ratings yet</p>
+            {% endif %}
+
+            {# Tracks #}
+            {% if music.type != "Single" %}
+                    <a class="mt-2">Tracks:</a>
+                <ul style="padding-left: 15px">
+                {% for el in tracks %}
+                    <li class="mt-2"><a href="{% url 'track details' el.id %}">{{ el.title }}</a></li>
+                {% endfor %}
+                </ul>
+                    <p style="padding-top: 20px"><a href="{% url 'create a track' music.id %}" class="btn btn-primary" style="color: white">Add tracks</a></p>
+            {% endif %}
+        {% if music.type == 'Single' %}
+            <hr>
+        <form method="post" action="{% url 'music details' music.id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.body }}
+                <br>
+                <a>Rating:</a>
+                {{ form.rating }}
+                <button class="btn btn-primary mt-2" type="submit">Post</button>
+        </form>
+        {% endif %}
+        {% if current_user.is_staff or current_user.is_superuser %}
+            <hr>
+                <p>
+                <a href="{% url 'music edit' music.id %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'music delete' music.id %}" class="btn btn-danger">Delete</a>
+                </p>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <div style="padding-left: 10px; padding-right: 10px">
+        <h2>Reviews:</h2>
+        <hr>
+        {% if music.type != 'Single' %}
+        <form method="post" action="{% url 'music details' music.id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.body }}
+                <br>
+                <a>Rating:</a>
+                {{ form.rating }}
+                <button class="btn btn-primary mt-2" type="submit">Post</button>
+        </form>
+    {% endif %}
+        <br>
+        {% if comments %}
+            {% for el in comments %}
+
+                <img src="{{ el.user.profile.profile_picture }}" alt="user profile pic" width="25" height="25"/>
+                <a href="{% url 'profile_details' el.user_id %}">{{ el.user.username }}</a>
+                <a href="{% url 'edit comment' el.id %}">Edit</a>/<a href="{% url 'delete comment' el.id %}" style="color: red">Delete</a>
+                <h3>{{ el.body }}</h3>
+                <h6 style="font-style: italic">Rating: {{ el.rating }}/10</h6>
+                <br>
+
+            {% endfor %}
+        {% else %}
+            <h4>Be the first to review this piece!</h4>
+        {% endif %}
+    </div>
+{% endblock %}

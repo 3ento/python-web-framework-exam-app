@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block page_content %}
+    <h1 class="text-center">Create Your Profile</h1>
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <form method="post" action="{% url 'profile_create' %}">
+                {% csrf_token %}
+
+                <h4><a style="color: red">*</a>Username: </h4>
+                {{ form.username }}
+
+                <h4><a style="color: red">*</a>Password: </h4>
+                {{ form.password1 }}
+
+                <h4><a style="color: red">*</a>Repeat password: </h4>
+                {{ form.password2 }}
+
+                <h4><a style="color: red">*</a>First name:</h4>
+                {{ form.first_name }}
+
+                <h4>Last name: </h4>
+                {{ form.last_name }}
+
+                <br>
+                <h4><img id="cover-art" src="" style="width: 90px; height: 90px; object-fit: cover" alt=""><a style="color: red">*</a>Profile picture URL: </h4>
+                {{ form.profile_picture }}
+
+                <h4>Description: </h4>
+                {{ form.description }}
+
+                <h4><a style="color: red">*</a>Pronouns: </h4>
+                {{ form.pronouns }}
+
+                <button class="btn btn-primary mt-2" type="submit">Create</button>
+            </form>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+    <script>
+        function notEmpty() {
+
+          let e = document.getElementById("id_profile_picture");
+          document.getElementById('cover-art').src = e.value;
+
+        }
+        notEmpty()
+
+        document.getElementById("id_profile_picture").onchange = notEmpty;
+    </script>
+{% endblock %}

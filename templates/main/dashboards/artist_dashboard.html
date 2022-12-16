@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+    <h1 class='text-center'>
+        {% if artist %}
+            All Artists
+        {% else %}
+            No artists yet
+        {% endif %}
+    </h1>
+    <hr>
+    {% if artist %}
+        <div style="margin: auto; width: 1190px">
+            <div class="row mb-5">
+                {% for el in artist %}
+                    <div class="card ml-3 mb-3" style="width: 18rem;">
+                        <!-- Image -->
+                        <img src="{{ el.picture }}"
+                             class="card-img-top" alt="Photo description" style="width: 287px; height: 300px; object-fit: cover">
+                        <div class="card-body" style="text-align: center">
+                            <h4 class="card-text" style="font-weight: lighter">{{ el.name }}</h4>
+                            <hr>
+                            <!-- First 30 chars from the description -->
+                            <p class="card-text">{{ el.description|truncatechars:100 }}</p>
+                            <!-- Button to the Photo Details Page -->
+                            <a href="{% url 'artist details' el.id %}" class="btn btn-primary" style="">See details</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    <div class=" row d-flex justify-content-center align-content-center">
+            <a href="{% url 'artist create' %}" class="btn btn-lg btn-secondary row align-self-baseline">Add
+                more!</a>
+    </div>
+
+{% endblock %}

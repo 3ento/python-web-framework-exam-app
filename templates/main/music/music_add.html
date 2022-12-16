@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block page_content %}
+    <h1 class="text-center">Add Music</h1><hr>
+
+        <div style="text-align: center">
+            <form method="post" action="{% url 'music add'%}">
+
+                <img id="cover-art" src="{{ profile.profile_picture }}" style="width: 90px; height: 90px; object-fit: cover" alt="Photo description">
+                <br>
+                {% csrf_token %}
+                <h6>Title:</h6>
+                {{ form.title }}
+
+                <h6 id="desc">Description:</h6>
+                {{ form.description }}
+
+                <h6>ImageURL:</h6>
+                {{ form.link }}
+
+                <h6>Artist:</h6>
+                {{ form.artist }}
+
+                <h6>Release type:</h6>
+                {{ form.type }}
+
+                <button class="btn btn-primary mt-2" type="submit">Add</button>
+            </form>
+        </div>
+
+    <script>
+        function notEmpty() {
+
+          let e = document.getElementById("id_type");
+          let strUser = e.options[e.selectedIndex].value.trim();
+
+          if(strUser === "Single"){
+              document.getElementById('desc').innerHTML = "Lyrics: ";
+          } else{
+              document.getElementById('desc').innerHTML = "Description: ";
+          }
+        }
+
+        function picture_change() {
+
+          let e = document.getElementById("id_link");
+          document.getElementById('cover-art').src = e.value;
+
+        }
+        picture_change()
+
+        document.getElementById("id_link").onchange = picture_change;
+
+        notEmpty()
+        document.getElementById("id_type").onchange = notEmpty;
+    </script>
+
+{% endblock %}
+
+# title, desc, link, artist, type

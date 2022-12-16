@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+    <div class="d-flex">
+        <div class="d-inline p-2 w-50">
+            <img src="{{ artist.picture }}" class="w-100 rounded mx-auto d-block" alt="{{ artist.description }}"/>
+        </div>
+
+        <div class="d-inline p-2 w-50">
+            <a style="font-size: 35px; text-shadow: 3px 2px #616161;">{{ artist.name }}</a>|<a>Followers: {{ number_of_followers }}</a>
+            <br>
+
+              <form action="{% url 'artist follow' object.id %}" method="POST">
+                  {% csrf_token %}
+                  {% if artist_is_followed %}
+                      <button type="submit" name="blogpost_id" value="{{object.id}}" class="btn btn-info" style="background-color: gray; border: gray">Unfollow</button>
+                  {% else %}
+                      <button type="submit" name="blogpost_id" value="{{object.id}}" class="btn btn-info">Follow</button>
+                  {% endif %}
+              </form>
+
+            <hr>
+            <p class="mt-2" style="">{{ artist.description }}</p>
+            <p class="mt-2">Genre: <a href="{% url 'dashboard genre' genre %}">{{ genre }}</a></p>
+
+
+            <hr>
+        {% if music.count < 3 %}
+            <h2>Discography: </h2>
+            <br>
+                {% if music %}
+
+                        <div class="row" style="padding-bottom: 0">
+
+                            {% for el in music %}
+                                <div class="card ml-3 mb-3" style="width: 18rem;">
+                                    <img src="{{ el.link }}" class="card-img-top" alt="Photo description">
+                                    <div class="card-body" style="text-align: center;">
+                                        <h6 style="font-style: italic">{{ el.type }}</h6>
+                                        <h4 class="card-text" style="text-align: center">{{ el.title }}</h4>
+                                        <br>
+                                        <a href="{% url 'music details' el.id %}" class="btn btn-primary">See details</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                {% else %}
+                    This artist doesn't have any music yet.
+                {% endif %}
+            <hr>
+        {% endif %}
+
+            <a href="{% url 'music add artist specific' artist.id %}" class="btn btn-primary">Add songs</a>
+
+            {% if current_user.is_staff or current_user.is_superuser %}
+
+                <a href="{% url 'artist edit' object.id %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'artist delete' object.id %}" class="btn btn-danger">Delete</a>
+
+            {% endif %}
+
+        </div>
+    </div>
+    {% if music.count > 3 %}
+        <div style="padding-left: 10px">
+            <h2>Discography: </h2>
+            <br>
+                {% if music %}
+
+                        <div class="row" style="padding-bottom: 0">
+
+                            {% for el in music %}
+                                <div class="card ml-3 mb-3" style="width: 18rem;">
+                                    <img src="{{ el.link }}" class="card-img-top" alt="Photo description">
+                                    <div class="card-body" style="text-align: center;">
+                                        <h6 style="font-style: italic">{{ el.type }}</h6>
+                                        <h4 class="card-text" style="text-align: center">{{ el.title }}</h4>
+                                        <br>
+                                        <a href="{% url 'music details' el.id %}" class="btn btn-primary">See details</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                {% else %}
+                    This artist doesn't have any music yet.
+                {% endif %}
+            <hr>
+        </div>
+    {% endif %}
+{% endblock %}

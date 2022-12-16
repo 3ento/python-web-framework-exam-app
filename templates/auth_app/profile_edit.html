@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block page_content %}
+
+    <h1 class="text-center">Edit Your Profile</h1>
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <form method="post" action="{% url 'profile_edit' profile.user_id %}">
+
+                <img id="cover-art" src="{{ profile.profile_picture }}" style="width: 90px; height: 90px; object-fit: cover" alt="Photo description">
+                <br>
+                {{ form }}
+                {% csrf_token %}
+
+                <button class="btn btn-primary mt-2" type="submit">Edit</button>
+            </form>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+<script>
+        function notEmpty() {
+
+          let e = document.getElementById("id_profile_picture");
+          document.getElementById('cover-art').src = e.value;
+
+        }
+        notEmpty()
+
+        document.getElementById("id_profile_picture").onchange = notEmpty;
+    </script>
+{% endblock %}

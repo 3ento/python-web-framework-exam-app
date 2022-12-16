@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block page_content %}
+    <h1 style="text-align: center">Add Artist</h1>
+    <div class="row">
+        <div style="padding-top: 27px"><img src="" alt="cover-art" id="cover-art" style="width: 480px; height: 480px; object-fit: cover"></div>
+
+        <div class="col-lg-6">
+            <form method="post" action="{% url 'artist create'%}">
+                {% csrf_token %}
+
+                <h6>Name: </h6>
+                {{ form.name }}
+
+                <h6>Description: </h6>
+                {{ form.description }}
+
+                <h6>Image URL: </h6>
+                {{ form.picture }}
+
+                <h6>Genre: </h6>
+                {{ form.genres }}
+
+                <br><button class="btn btn-primary mt-2" type="submit">Create</button>
+            </form>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+
+    <script>
+        function picture_change() {
+
+          let e = document.getElementById("id_picture");
+          document.getElementById('cover-art').src = e.value;
+
+        }
+        picture_change()
+
+        document.getElementById("id_picture").onchange = picture_change;
+    </script>
+
+{% endblock %}
