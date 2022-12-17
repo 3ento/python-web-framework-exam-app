@@ -54,21 +54,23 @@
                 {% endif %}
             </div>
         </div>
+
         {% if saved_songs %}
-            <div class="container mb-5" style="padding-top: 25px">
-                <a style="font-size: large; font-weight: bolder">Saved songs: </a>
+            <div style="margin: auto; width: 1190px">
+                <h2>Saved songs: </h2>
+                <hr>
 
                 <div class="row mb-5">
                     {% for el in saved_songs %}
-                        <div class="card ml-3 mb-3" style="width: 18rem;">
+                        <div class="card ml-3 mb-3" style="width: 18rem; display: inline-block;">
                             <!-- Image -->
                             <img src="{{ el.link }}"
-                                 alt="Photo description" style="width: 287px; height: 300px; object-fit: cover">
+                                 class="card-img-top" alt="Cover Art" style="width: 287px; height: 300px; object-fit: cover">
                             <div class="card-body" style="text-align: center;">
-                                <h6 style="font-style: italic">{{ el.type }}</h6>
-                                <h4 class="card-text" style="text-align: center">{{ el.title }}</h4>
-                                <br>
-                                <!-- First 30 chars from the description -->
+                                <h4 class="card-text">{{ el.title }}</h4>
+                                <a>{{ el.type }} by </a><a href="{% url 'artist details' el.artist.id %}" class="card-text" style="font-size: 14px">{{ el.artist }}</a>
+                                <hr>
+                                <p class="card-text">{{ el.description|truncatechars:100 }}</p>
                                 <a href="{% url 'music details' el.id %}" class="btn btn-primary">See details</a>
                             </div>
                         </div>
