@@ -19,11 +19,12 @@
 
                 <h6>Artist:</h6>
                 {{ form.artist }}
+                <br><a href="{% url 'artist create' %}" target="_blank">Not seeing the artist you need? Add them!</a>
 
                 <h6>Release type:</h6>
                 {{ form.type }}
 
-                <button class="btn btn-primary mt-2" type="submit">Add</button>
+                <br><button class="btn btn-primary mt-2" type="submit">Add</button>
             </form>
         </div>
 

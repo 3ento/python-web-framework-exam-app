@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block page_content %}
-    <div class="row">
-        <div>
+    <div>
+        <div style="padding-left: 20px; padding-right: 20px">
             <img src="{{ track.link }}" alt="cover art" style="width: 200px; height: 200px; "/>
             <a style="font-size: 35pt;">{{ track.title }} |</a>
             On <a href="{% url 'music details' track.collection.id %}">{{ track.collection }}</a>, by
@@ -11,7 +11,7 @@
             <hr>
         
             <h4>Lyrics: </h4>
-            <p class="mt-2">{{ track.lyrics|linebreaksbr }}</p>
+            <p>{{ track.lyrics|linebreaksbr }}</p>
 
             {% if current_user.is_staff or current_user.is_superuser %}
                 <a href="{% url 'track edit' track.id %}" class="btn btn-primary">Edit</a>

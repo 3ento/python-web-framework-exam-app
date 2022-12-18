@@ -54,5 +54,5 @@ class DeleteTrack(LoginRequiredMixin, DeleteView):
     template_name = 'main/music/tracks/track_delete.html'
 
     def get_success_url(self):
-        artist_id = MusicTracks.objects.get(pk=self.kwargs['pk']).artist_id
+        artist_id = self.object.collection.id
         return reverse_lazy('music details', kwargs={'pk': artist_id})
