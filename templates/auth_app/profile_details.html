@@ -65,7 +65,7 @@
                         <div class="card ml-3 mb-3" style="width: 18rem; display: inline-block;">
                             <!-- Image -->
                             <img src="{{ el.link }}"
-                                 class="card-img-top" alt="Cover Art" style="width: 287px; height: 300px; object-fit: cover">
+                                 class="card-img-top" alt="Cover Art" style="width: 287px; height: 300px; object-fit: cover" id="cover-image">
                             <div class="card-body" style="text-align: center;">
                                 <h4 class="card-text">{{ el.title }}</h4>
                                 <a>{{ el.type }} by </a><a href="{% url 'artist details' el.artist.id %}" class="card-text" style="font-size: 14px">{{ el.artist }}</a>

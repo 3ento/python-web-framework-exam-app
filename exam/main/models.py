@@ -38,6 +38,9 @@ class Artist(models.Model):
         AppUser,
     )
 
+    def show_more_description(self):
+        return self.description[100:]
+
     def number_of_followers(self):
         return self.followers.count()
 
@@ -82,6 +85,9 @@ class MusicCollections(models.Model):
         choices=TYPES,
         default="",
     )
+
+    def show_more_description(self):
+        return self.description[100:]
 
     def number_of_saves(self):
         return self.saves.count()
