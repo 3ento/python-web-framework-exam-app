@@ -86,6 +86,9 @@ class MusicCollections(models.Model):
         default="",
     )
 
+    def get_artist_name(self):
+        return self.artist.name
+
     def show_more_description(self):
         return self.description[100:]
 

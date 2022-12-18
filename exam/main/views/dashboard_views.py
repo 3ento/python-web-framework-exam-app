@@ -36,7 +36,7 @@ class MusicDashboard(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['music'] = MusicCollections.objects.all()
+        context['music'] = sorted(MusicCollections.objects.all(), key=lambda x: x.get_artist_name(), reverse=False)
 
         return context
 
@@ -45,7 +45,7 @@ class ArtistDashboard(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['artist'] = Artist.objects.all()
+        context['artist'] = sorted(Artist.objects.all(), key=lambda x: x.name, reverse=False)
 
         return context
 
