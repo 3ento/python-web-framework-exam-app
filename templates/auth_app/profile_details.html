@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block page_content %}
+
+
     <div>
         <div class="container mb-5" style="text-align: center">
             <img src="{{ profile.profile_picture }}" alt="profile pciture" style="width: 343px; height: 343px">
@@ -62,20 +64,28 @@
 
                 <div class="row mb-5">
                     {% for el in saved_songs %}
-                        <div class="card ml-3 mb-3" style="width: 18rem; display: inline-block;">
+                        <div id="card-ml-3-mb-3" class="card ml-3 mb-3">
                             <!-- Image -->
-                            <img src="{{ el.link }}"
-                                 class="card-img-top" alt="Cover Art" style="width: 287px; height: 300px; object-fit: cover" id="cover-image">
-                            <div class="card-body" style="text-align: center;">
-                                <h4 class="card-text">{{ el.title }}</h4>
-                                <a>{{ el.type }} by </a><a href="{% url 'artist details' el.artist.id %}" class="card-text" style="font-size: 14px">{{ el.artist }}</a>
-                                <hr>
-                                <p class="card-text">{{ el.description|truncatechars:100 }}</p>
-                                <a href="{% url 'music details' el.id %}" class="btn btn-primary">See details</a>
+                            <div class="container">
+                                <img src="{{ el.link }}" alt="Cover Art" id="cover-art" class="image">
+                                <div class="middle">
+                                    <a href="{% url 'music details' el.id %}" class="btn btn-primary">See details</a>
+                                </div>
                             </div>
-                        </div>
-                    {% endfor %}
-                </div>
+                            <div class="card-body">
+                                <h4 class="card-text">{{ el.title }}</h4>
+                                <a>{{ el.type }} by </a><a href="{% url 'artist details' el.artist.id %}" class="card-subtext">{{ el.artist }}</a>
+                                <hr>
+                                <details>
+                                        <summary style="list-style-type: none; ">{{ el.description|truncatechars:100 }}</summary>
+                                        <li style="list-style-type: ''">{{ el.show_more_description}}</li>
+                                </details>
+                            </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+
             </div>
         {% else %}
             <div class="container mb-5" style="padding-top: 25px; text-align: center">

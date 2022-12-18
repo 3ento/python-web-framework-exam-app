@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>TuneAthenaeum</title>
@@ -35,6 +34,69 @@
         .dropdown:hover .dropdown-content {display: block;}
 
         {#.dropdown:hover .dropbtn {background-color: #3e8e41;}#}
+
+        #cover-art{
+        width: 287px;
+        height: 300px;
+        object-fit: cover
+        }
+
+        .dashboard-title{
+            font-size: 65px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #card-ml-3-mb-3{
+            width: 18rem;
+            display: inline-block;
+        }
+
+        .card-body{
+            text-align: center;
+        }
+
+        .card-subtext{
+            font-size: 14px;
+        }
+
+        .card-text{
+            font-size: 28px;
+        }
+
+        div {
+            font-family: "Century Gothic", serif;
+        }
+
+        .container {
+            position: relative;
+            padding-left: 0;
+        }
+
+        .image {
+          opacity: 1;
+          transition: .5s ease;
+          backface-visibility: hidden;
+        }
+
+        .middle {
+          transition: .5s ease;
+          opacity: 0;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+
+        }
+
+        .container:hover .image {
+          opacity: 0.3;
+        }
+
+        .container:hover .middle {
+          opacity: 1;
+        }
 
     </style>
 </head>

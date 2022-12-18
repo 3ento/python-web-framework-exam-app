@@ -24,10 +24,12 @@
                     {% endif %}
                             <li style="padding: 10px; overflow: auto">
                                 <img src="{{ temp.picture }}" style="width: 200px; height: 200px; float: left; margin: 0 15px 0; border-radius: 10px; object-fit: cover">
-                                <a style="font: bold 25px/1.5 Helvetica, Verdana, sans-serif;">{{ forloop.counter }}. {{ temp.name }}</a>
-                                <p style="font: 200 18px/1.5 Georgia, Times New Roman, serif;">Followers: {{ temp.number_of_followers }}</p>
-                                <p style="font: 200 12px/1.5 Georgia, Times New Roman, serif;">{{ temp.description|truncatechars:300 }}</p>
+
+                                <a style="font-size: 32px">{{ forloop.counter }}. {{ temp.name }}</a>
+                                <p><a style="text-decoration: underline">Followers</a>: {{ temp.number_of_followers }}</p>
+                                <p style="font-size: 18px">{{ temp.description|truncatechars:300 }}</p>
                                 <p><a href="{% url 'artist details' temp.id %}" class="btn btn-primary">See details</a></p>
+
                             </li>
 
                         </ul>
@@ -49,10 +51,10 @@
                 {% endif %}
                         <li style="padding: 10px; overflow: auto">
                             <img src="{{ temp.link }}" style="width: 200px; height: 200px; float: left; margin: 0 15px 0; border-radius: 10px; object-fit: cover">
-                            <a style="font: bold 25px/1.5 Helvetica, Verdana, sans-serif;">{{ forloop.counter }}. {{ temp.title }}| </a>
+                            <a style="font-family: 'Century Gothic', serif; font-size: 28px">{{ forloop.counter }}. {{ temp.title }}| </a>
                             <a style="font: 200 18px/1.5 Georgia, Times New Roman, serif;">{{temp.type}} by <a href="{% url 'artist details' temp.artist.id %}" style="font: 200 18px/1.5 Georgia, Times New Roman, serif;">{{ temp.artist }}</a></a>
-                            <p style="font: 200 18px/1.5 Georgia, Times New Roman, serif;">Saves: {{ temp.number_of_saves }}</p>
-                            <p style="font: 200 12px/1.5 Georgia, Times New Roman, serif;">{{ temp.description|truncatechars:300 }}</p>
+                            <p><a style="text-decoration: underline">Saves</a>: {{ temp.number_of_saves }}</p>
+                            <p>{{ temp.description|truncatechars:300 }}</p>
                             <p><a href="{% url 'music details' temp.id %}" class="btn btn-primary">See details</a></p>
                         </li>
 

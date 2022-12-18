@@ -1,82 +1,87 @@
 {% extends 'base.html' %}
 {% block page_content %}
-    {# CSS #}
-    <style>
-        #cover-art{
-        width: 287px;
-        height: 300px;
-        object-fit: cover
-        }
 
-        .dashboard-title{
-            font-size: 65px;
-            text-align: center;
-            font-weight: bold;
-        }
+{#    <style>#}
+{#    .container {#}
+{#      position: relative;#}
+{#        padding-left: 0;#}
+{#    }#}
+{##}
+{#    .image {#}
+{#      opacity: 1;#}
+{#      transition: .5s ease;#}
+{#      backface-visibility: hidden;#}
+{#    }#}
+{##}
+{#    .middle {#}
+{#      transition: .5s ease;#}
+{#      opacity: 0;#}
+{#      position: absolute;#}
+{#      top: 50%;#}
+{#      left: 50%;#}
+{#      transform: translate(-50%, -50%);#}
+{#      -ms-transform: translate(-50%, -50%);#}
+{##}
+{#    }#}
+{##}
+{#    .container:hover .image {#}
+{#      opacity: 0.3;#}
+{#    }#}
+{##}
+{#    .container:hover .middle {#}
+{#      opacity: 1;#}
+{#    }#}
+{#    </style>#}
 
-        #card-ml-3-mb-3{
-            width: 18rem;
-            display: inline-block;
-        }
-
-        .card-body{
-            text-align: center;
-        }
-
-        .card-subtext{
-            font-size: 14px;
-        }
-
-        .card-text{
-            font-size: 28px;
-        }
-
-        div {
-            font-family: "Century Gothic", serif;
-        }
-    </style>
-
+    {# Title section #}
     <h1 class="dashboard-title">
+
         {% if music %}
             Library
         {% else %}
             No music yet
         {% endif %}
-    <div class=" row d-flex justify-content-center align-content-center">
-            <a href="{% url 'music add' %}" class="btn btn-lg btn-secondary row align-self-baseline">
-                Add more!
-            </a>
-    </div>
+
+        <div class=" row d-flex justify-content-center align-content-center">
+                <a href="{% url 'music add' %}" class="btn btn-lg btn-secondary row align-self-baseline">Add more!</a>
+        </div>
+
     </h1>
+
+    {# Content block #}
     <hr>
     {% if music %}
         <div style="margin: auto; width: 1190px">
             <div class="row mb-5">
                 {% for el in music %}
-                    <div id="card-ml-3-mb-3" class="card ml-3 mb-3">
-                        <!-- Image -->
-                        <img src="{{ el.link }}"
-                             class="" alt="Cover Art" id="cover-art">
-                        <div class="card-body">
-                            <h4 class="card-text">{{ el.title }}</h4>
-                            <a>{{ el.type }} by </a><a href="{% url 'artist details' el.artist.id %}" class="card-subtext">{{ el.artist }}</a>
-                            <hr>
-                            <details>
-                                    <summary style="list-style-type: none; ">{{ el.description|truncatechars:100 }}</summary>
-                                    <li style="list-style-type: ''">{{ el.show_more_description}}</li>
-                            </details>
+                        <div id="card-ml-3-mb-3" class="card ml-3 mb-3">
+                            <div class="container">
+                                <img src="{{ el.link }}" alt="Cover Art" id="cover-art" class="image">
+                                <div class="middle">
+                                    <a href="{% url 'music details' el.id %}" class="btn btn-primary">See details</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
 
-                            <div><hr><a href="{% url 'music details' el.id %}" class="btn btn-primary">See details</a></div>
-                        </div>
+                                <h4 class="card-text">{{ el.title }}</h4>
+                                <a>{{ el.type }} by </a><a href="{% url 'artist details' el.artist.id %}" class="card-subtext">{{ el.artist }}</a>
+
+                                <hr>
+                                <details>
+                                        <summary style="list-style-type: none; ">{{ el.description|truncatechars:100 }}</summary>
+                                        <li style="list-style-type: ''">{{ el.show_more_description}}</li>
+                                </details>
+
+                            </div>
                     </div>
                 {% endfor %}
             </div>
         </div>
 
-        {% else %}
+    {% else %}
         <div class=" row d-flex justify-content-center align-content-center">
-            <a href="{% url 'music add' %}" class="btn btn-lg btn-secondary row align-self-baseline">
-                Add</a>
+            <a href="{% url 'music add' %}" class="btn btn-lg btn-secondary row align-self-baseline">Add</a>
         </div>
-        {% endif %}
+    {% endif %}
+
 {% endblock %}
