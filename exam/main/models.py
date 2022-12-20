@@ -16,6 +16,7 @@ class Artist(models.Model):
 
     name = models.CharField(
         max_length=50,
+        unique=True,
     )
 
 
@@ -59,6 +60,7 @@ class MusicCollections(models.Model):
 
     title = models.CharField(
         max_length=50,
+        unique=True,
     )
 
     description = models.TextField(

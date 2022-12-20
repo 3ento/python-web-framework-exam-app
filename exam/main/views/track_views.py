@@ -43,7 +43,7 @@ class DetailsTrack(LoginRequiredMixin, DetailView):
 class EditTrack(LoginRequiredMixin, UpdateView):
     model = MusicTracks
     template_name = 'main/music/tracks/track_edit.html'
-    fields = ('link', 'title', 'lyrics')
+    fields = ('title', 'lyrics')
 
     def get_success_url(self):
         track_id = self.kwargs['pk']

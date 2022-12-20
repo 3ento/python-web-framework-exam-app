@@ -1,14 +1,12 @@
 {% extends 'base.html' %}
 {% block page_content %}
 
-    <div style="text-align: center">
-
-        <h1 class="text-center">Add Artist</h1>
-        {% if form.errors %}
-                <p style="color: red">{{ form.errors }}</p>
-        {% endif %}
-        <hr>
-    </div>
+    <h1 class="text-center">Add Artist</h1>
+    {% if form.errors %}
+        <a style="color: red">!!!</a>
+        {{ form.errors }}
+    {% endif %}
+    <hr>
 
     <div style="text-align: center">
         <form method="post" action="{% url 'artist create'%}">
