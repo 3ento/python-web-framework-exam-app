@@ -1,12 +1,19 @@
 {% extends 'base.html' %}
 {% block page_content %}
 
-    <h1 class="text-center">Add Artist</h1><hr>
+    <div style="text-align: center">
+
+        <h1 class="text-center">Add Artist</h1>
+        {% if form.errors %}
+                <p style="color: red">{{ form.errors }}</p>
+        {% endif %}
+        <hr>
+    </div>
 
     <div style="text-align: center">
         <form method="post" action="{% url 'artist create'%}">
 
-            <img id="cover-art" src="{{ profile.profile_picture }}" style="width: 90px; height: 90px; object-fit: cover" alt="artist-photo">
+            <img id="cover-art" src="" style="width: 90px; height: 90px; object-fit: cover" alt="">
             <br>
             {% csrf_token %}
             <h6>Name:</h6>
