@@ -38,7 +38,7 @@ class ProfileDetails(DetailView):
     def get_context_data(self, **kwargs):
 
         following = Artist.objects.filter(followers=self.object.user)
-        saved = MusicCollections.objects.filter(saves__username=self.object.user.username)
+        saved = sorted(MusicCollections.objects.filter(saves__username=self.object.user.username), key=lambda x: x.artist.name, reverse=False)
 
         context = super().get_context_data(**kwargs)
         context.update({
