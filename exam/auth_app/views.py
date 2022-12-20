@@ -2,7 +2,6 @@ from django.contrib.auth import login
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
-
 from exam.auth_app.forms import CreateProfileForm, EditProfileForm, UserEditForm
 from exam.auth_app.models import Profile, AppUser
 from exam.main.models import MusicCollections, Artist

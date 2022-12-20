@@ -7,7 +7,7 @@ from exam.main.forms import CreatePhotoComment
 from exam.main.models import MusicCollections, MusicCollectionComment, MusicTracks, Artist
 
 
-class MusicDetails(DetailView, FormMixin):
+class MusicDetails(LoginRequiredMixin, DetailView, FormMixin):
     model = MusicCollections
     form_class = CreatePhotoComment
     template_name = 'main/music/music_details.html'
@@ -20,26 +20,32 @@ class MusicDetails(DetailView, FormMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        # variables
         comments = MusicCollectionComment.objects.filter(post_id=self.object.id)
         tracks = MusicTracks.objects.filter(collection=self.object)
+        likes_connected = get_object_or_404(MusicCollections, id=self.kwargs['pk'])
+        liked = False
 
-        context['owner_name'] = self.object.artist
-        context['owner_id'] = self.object.artist.id
-        context['form'] = CreatePhotoComment(initial={'post': self.object})
-        context['comments'] = comments
-        context['tracks'] = tracks
-        context['current_user'] = self.request.user
+        # conditional contex updates
+        if likes_connected.saves.filter(id=self.request.user.id).exists():
+            liked = True
+
         if comments:
             context['rating'] = round(sum([int(el.rating) for el in comments]) / len(comments), 2)
         else:
             context['rating'] = 0
 
-        likes_connected = get_object_or_404(MusicCollections, id=self.kwargs['pk'])
-        liked = False
-        if likes_connected.saves.filter(id=self.request.user.id).exists():
-            liked = True
-        context['number_of_likes'] = likes_connected.number_of_saves()
-        context['post_is_liked'] = liked
+        # non-conditional context updates
+        context.update({
+            'owner_name': self.object.artist,
+            'owner_id': self.object.artist.id,
+            'form': CreatePhotoComment(initial={'post': self.object}),
+            'comments': comments,
+            'tracks': tracks,
+            'current_user': self.request.user,
+            'number_of_likes': likes_connected.number_of_saves(),
+            'post_is_liked': liked,
+        })
 
         return context
 
@@ -77,7 +83,6 @@ class MusicCreateArtistSpecific(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
 
         context['artist_id'] = self.kwargs['pk']
-
         return context
 
 

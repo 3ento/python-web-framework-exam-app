@@ -5,6 +5,10 @@
     <div class="row">
         <div class="col-lg-3"></div>
         <div class="col-lg-6" style="text-align: center">
+            <hr>
+            <p style="font-style: italic">"{{ musiccollectioncomment.body }}"</p>
+            <p style="text-align: right; font-style: italic; font-weight: lighter">Rating: {{ musiccollectioncomment.rating }}</p>
+            <hr>
             <form method="post" action="{% url 'delete comment' musiccollectioncomment.id %}">
 
                 {% csrf_token %}

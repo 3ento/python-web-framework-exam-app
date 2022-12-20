@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 from exam.main.models import MusicCollections, Artist
 
 

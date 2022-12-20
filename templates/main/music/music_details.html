@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-
 {% block page_content %}
+
     <div class="d-flex">
 
         {# Cover art #}
@@ -34,25 +34,27 @@
             {% endif %}
             </form>
 
-            {# Description #}
-        {% if music.type != 'Single' %}
-            <hr>
-            <p class="mt-2">{{ music.description|linebreaks }}</p>
-            <hr>
-        {% else %}
-            <hr>
-            <h4>Lyrics: </h4>
-            <details>
-                    <summary style="list-style-type: ''">{{ music.description|truncatechars:100|linebreaksbr }}</summary>
-                    <li style="list-style-type: ''">{{ music.description|linebreaksbr }}</li>
-            </details>
-            <hr>
-        {% endif %}
+            {# Description - if the music type is a single it should display lyrics instead #}
+            {% if music.type != 'Single' %}
+
+                <hr><p class="mt-2">{{ music.description|linebreaks }}</p><hr>
+
+            {% else %}
+
+                <hr>
+                <h4>Lyrics: </h4>
+                <details>
+                        <summary style="list-style-type: ''">{{ music.description|truncatechars:100|linebreaksbr }}</summary>
+                        <li style="list-style-type: ''">{{ music.description|linebreaksbr }}</li>
+                </details>
+                <hr>
+
+            {% endif %}
 
             {# Ratings #}
             {% if comments %}
                 <p class="mt-2">Rating: {{ rating }}/10  </p>
-                {% else %}
+            {% else %}
                 <p class="mt-2">Rating: No ratings yet</p>
             {% endif %}
 
@@ -66,30 +68,36 @@
                 </ul>
                     <p style="padding-top: 20px"><a href="{% url 'create a track' music.id %}" class="btn btn-primary" style="color: white">Add tracks</a></p>
             {% endif %}
-        {% if music.type == 'Single' %}
-            <hr>
-        <form method="post" action="{% url 'music details' music.id %}" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.body }}
-                <br>
-                <a>Rating:</a>
-                {{ form.rating }}
-                <button class="btn btn-primary mt-2" type="submit">Post</button>
-        </form>
-        {% endif %}
-        {% if current_user.is_staff or current_user.is_superuser %}
-            <hr>
-                <p>
-                <a href="{% url 'music edit' music.id %}" class="btn btn-primary">Edit</a>
-                <a href="{% url 'music delete' music.id %}" class="btn btn-danger">Delete</a>
-                </p>
+
+            {# Special positioning for the comment box given a "Single" type - styling purposes #}
+            {% if music.type == 'Single' %}
+                <hr>
+                <form method="post" action="{% url 'music details' music.id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.body }}
+                    <br>
+                    <a>Rating:</a>
+                    {{ form.rating }}
+                    <button class="btn btn-primary mt-2" type="submit">Post</button>
+                </form>
+            {% endif %}
+
+            {# Moderation #}
+            {% if current_user.is_staff or current_user.is_superuser %}
+                <hr>
+                    <p>
+                    <a href="{% url 'music edit' music.id %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'music delete' music.id %}" class="btn btn-danger">Delete</a>
+                    </p>
             {% endif %}
 
         </div>
     </div>
 
+    {# Default comment section location #}
     <div style="padding-left: 10px; padding-right: 10px">
         <h2>Reviews:</h2>
+
         <hr>
         {% if music.type != 'Single' %}
         <form method="post" action="{% url 'music details' music.id %}" enctype="multipart/form-data">
@@ -100,7 +108,8 @@
                 {{ form.rating }}
                 <button class="btn btn-primary mt-2" type="submit">Post</button>
         </form>
-    {% endif %}
+        {% endif %}
+
         <br>
         {% if comments %}
             {% for el in comments %}
@@ -116,5 +125,6 @@
         {% else %}
             <h4>Be the first to review this piece!</h4>
         {% endif %}
+
     </div>
 {% endblock %}

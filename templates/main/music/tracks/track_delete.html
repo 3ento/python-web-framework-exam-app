@@ -2,15 +2,20 @@
 {% block page_content %}
 
     <h1 class="text-center">Delete Track?</h1>
-    <div class="row">
+    <div class="row" style="text-align: center">
         <div class="col-lg-3"></div>
         <div class="col-lg-6" style="text-align: center">
+            <hr>
+            <img src="{{ musictracks.link }}" style="object-fit: cover; height: 200px; width: 200px"><br>
+            <p style="margin: 0; font-size: 22px" class="card-subtext">{{ musictracks.artist.name }} - {{ musictracks.title }}</p>
+            <p style="margin: 0; font-size: 16px" class="card-subtext">on {{ musictracks.collection.title }}</p><hr>
+
             <form method="post" action="{% url 'track delete' musictracks.id %}">
 
                 {% csrf_token %}
                 {{ form }}
 
-                <button class="btn btn-primary mt-2" type="submit" style="position: center">Delete</button>
+                <br><button class="btn btn-danger mt-1" type="submit" style="position: center; margin: 0">Delete</button>
             </form>
         </div>
         <div class="col-lg-3"></div>

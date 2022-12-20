@@ -1,17 +1,21 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic import TemplateView
-
 from exam.main.models import MusicCollections, Artist
 
 
 def GenreDashboard(request, genre):
     template_name = 'main/dashboards/genre_dashboard.html'
 
-    context = {
-        'music': MusicCollections.objects.filter(artist__genres=genre),
-        'genre': MusicCollections.objects.filter(artist__genres=genre)[0].artist.genres
-    }
+    try:
+        context = {
+            'music': MusicCollections.objects.filter(artist__genres=genre),
+            'genre': genre
+        }
+    except IndexError:
+        context = {
+            'music': False,
+            'genre': genre
+        }
 
     return render(request, template_name, context)
 
@@ -31,7 +35,7 @@ def ChartsDashboard(request, chart):
 
     return render(request, template_name, context)
 
-class MusicDashboard(LoginRequiredMixin, TemplateView):
+class MusicDashboard(TemplateView):
     template_name = 'main/dashboards/music_dashboard.html'
 
     def get_context_data(self, **kwargs):
@@ -40,7 +44,7 @@ class MusicDashboard(LoginRequiredMixin, TemplateView):
 
         return context
 
-class ArtistDashboard(LoginRequiredMixin, TemplateView):
+class ArtistDashboard(TemplateView):
     template_name = 'main/dashboards/artist_dashboard.html'
 
     def get_context_data(self, **kwargs):

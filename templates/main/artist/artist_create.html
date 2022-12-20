@@ -1,39 +1,40 @@
 {% extends 'base.html' %}
 {% block page_content %}
+
     <h1 class="text-center">Add Artist</h1><hr>
 
-        <div style="text-align: center">
-            <form method="post" action="{% url 'artist create'%}">
+    <div style="text-align: center">
+        <form method="post" action="{% url 'artist create'%}">
 
-                <img id="cover-art" src="{{ profile.profile_picture }}" style="width: 90px; height: 90px; object-fit: cover" alt="artist-photo">
-                <br>
-                {% csrf_token %}
-                <h6>Name:</h6>
-                {{ form.name }}
+            <img id="cover-art" src="{{ profile.profile_picture }}" style="width: 90px; height: 90px; object-fit: cover" alt="artist-photo">
+            <br>
+            {% csrf_token %}
+            <h6>Name:</h6>
+            {{ form.name }}
 
-                <h6 id="desc">Description:</h6>
-                {{ form.description }}
+            <h6 id="desc">Description:</h6>
+            {{ form.description }}
 
-                <h6>ImageURL:</h6>
-                {{ form.picture }}
+            <h6>ImageURL:</h6>
+            {{ form.picture }}
 
-                <h6>Genre:</h6>
-                {{ form.genres }}
+            <h6>Genre:</h6>
+            {{ form.genres }}
 
-                <br><button class="btn btn-primary mt-2" type="submit">Add</button>
-            </form>
-        </div>
+            <br><button class="btn btn-primary mt-2" type="submit">Add</button>
+        </form>
+    </div>
 
-    <script>
-        function picture_change() {
+<script>
+    function picture_change() {
 
-          let e = document.getElementById("id_picture");
-          document.getElementById('cover-art').src = e.value;
+      let e = document.getElementById("id_picture");
+      document.getElementById('cover-art').src = e.value;
 
-        }
-        picture_change()
+    }
+    picture_change()
 
-        document.getElementById("id_picture").onchange = picture_change;
-    </script>
+    document.getElementById("id_picture").onchange = picture_change;
+</script>
 
 {% endblock %}

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
-
 {% block page_content %}
+
+    {# Header #}
     <h1 class='text-center'>
         {% if not objects %}
             No charts available to be shown
@@ -9,6 +10,7 @@
 
     {% if objects %}
 
+        {# Chart for most followed artists #}
         {% if chart_type == 'most_followed_artist' %}
                 {% for temp in objects %}
                     <div style="margin: 20px">
@@ -36,7 +38,9 @@
 
                     </div>
                 {% endfor %}
-        {% else %}
+
+        {# Chart for most saved songs #}
+        {% elif chart_type == 'most_saved_music' %}
             {% for temp in objects %}
                 <div style="margin: 20px">
 

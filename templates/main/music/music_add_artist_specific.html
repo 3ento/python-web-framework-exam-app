@@ -5,7 +5,7 @@
         <div style="text-align: center">
             <form method="post" action="{% url 'music add artist specific' artist_id %}">
 
-                <img id="cover-art" src="{{ profile.profile_picture }}" style="width: 90px; height: 90px; object-fit: cover" alt="Photo description">
+                <img id="cover-art" src="" style="width: 90px; height: 90px; object-fit: cover" alt="">
                 <br>
                 {% csrf_token %}
                 <h6>Title:</h6>
@@ -24,33 +24,33 @@
             </form>
         </div>
 
-    <script>
-        function notEmpty() {
+<script>
+    {# Changes "Description" to "Lyrics" when type "Single" is selected #}
+    function notEmpty() {
 
-          let e = document.getElementById("id_type");
-          let strUser = e.options[e.selectedIndex].value.trim();
+      let e = document.getElementById("id_type");
+      let strUser = e.options[e.selectedIndex].value.trim();
 
-          if(strUser === "Single"){
-              document.getElementById('desc').innerHTML = "Lyrics: ";
-          } else{
-              document.getElementById('desc').innerHTML = "Description: ";
-          }
-        }
+      if(strUser === "Single"){
+          document.getElementById('desc').innerHTML = "Lyrics: ";
+      } else{
+          document.getElementById('desc').innerHTML = "Description: ";
+      }
+    }
 
-        function picture_change() {
+    {# DYnamic picture change #}
+    function picture_change() {
 
-          let e = document.getElementById("id_link");
-          document.getElementById('cover-art').src = e.value;
+      let e = document.getElementById("id_link");
+      document.getElementById('cover-art').src = e.value;
 
-        }
-        picture_change()
+    }
+    picture_change()
 
-        document.getElementById("id_link").onchange = picture_change;
+    document.getElementById("id_link").onchange = picture_change;
 
-        notEmpty()
-        document.getElementById("id_type").onchange = notEmpty;
-    </script>
+    notEmpty()
+    document.getElementById("id_type").onchange = notEmpty;
+</script>
 
 {% endblock %}
-
-# title, desc, link, artist, type

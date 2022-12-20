@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block page_content %}
 
+    {# Header #}
     <h1 class='dashboard-title'>
         {% if artist %}
             All Artists
@@ -9,10 +10,12 @@
         {% endif %}
     </h1>
 
+    {# Add more button #}
     <div class=" row d-flex justify-content-center align-content-center">
             <a href="{% url 'artist create' %}" class="btn btn-lg btn-secondary row align-self-baseline">Add more!</a>
     </div>
 
+    {# Elements #}
     <hr>
     {% if artist %}
         <div style="margin: auto; width: 1190px">

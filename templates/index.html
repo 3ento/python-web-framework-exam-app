@@ -31,14 +31,19 @@
 </nav>
 <!-- End Navigation Bar -->
 
-<div class="container">
-    <div class="jumbotron" style="text-align: center">
+<div class="container" style="text-align: center">
+    <div class="jumbotron">
         <img style="width: 100%"
              src="https://i.imgur.com/gbzTzdN.png" alt="">
         <div class="position-sticky">
             <h1 class="display-4">Welcome to TuneAthenaeum</h1>
             <p class="lead">Explore, discuss and contribute to a vast music library!</p>
+            <a href="{% url 'dashboard music' %}" class="btn btn-lg btn-secondary">Music</a>
+            <a href="{% url 'dashboard artists' %}" class="btn btn-lg btn-secondary">Artists</a>
+            <a href="{% url 'dashboard charts' 'most_followed_artist' %}" class="btn btn-lg btn-secondary">Charts</a>
+            <p class="lead">or...</p>
             <hr class="my-4">
+
             <div class="flex-row">
 
                 <!-- Login Button -->
@@ -46,6 +51,7 @@
 
                 <!-- Register Button -->
                 <a href="{% url 'profile_create' %}" class="btn btn-lg btn-secondary">Register</a>
+                <p class="lead">to get the full experience!</p>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-
 {% block page_content %}
+
     <div>
         <div style="padding-left: 20px; padding-right: 20px">
             <img src="{{ track.link }}" alt="cover art" style="width: 200px; height: 200px; "/>
@@ -13,6 +13,7 @@
             <h4>Lyrics: </h4>
             <p>{{ track.lyrics|linebreaksbr }}</p>
 
+            {# Moderation #}
             {% if current_user.is_staff or current_user.is_superuser %}
                 <a href="{% url 'track edit' track.id %}" class="btn btn-primary">Edit</a>
                 <a href="{% url 'track delete' track.id %}" class="btn btn-danger">Delete</a>
@@ -20,4 +21,5 @@
 
         </div>
     </div>
+
 {% endblock %}

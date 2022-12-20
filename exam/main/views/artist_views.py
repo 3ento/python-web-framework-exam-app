@@ -1,9 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView
-from django.views.generic.edit import FormMixin, UpdateView, DeleteView
-
+from django.views.generic.edit import UpdateView, DeleteView
 from exam.main.forms import CreateArtist
 from exam.main.models import Artist, MusicCollections
 
@@ -15,7 +14,7 @@ class ArtistCreate(LoginRequiredMixin, CreateView):
 
     success_url = reverse_lazy('dashboard artists')
 
-class ArtistDetails(DetailView):
+class ArtistDetails(LoginRequiredMixin, DetailView):
     model = Artist
     template_name = 'main/artist/artist_details.html'
     context_object_name = 'artist'

@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from exam.auth_app.views import UserLoginView
 from exam.main.views.core_views import HomeView
 
 urlpatterns = [
@@ -26,5 +27,8 @@ urlpatterns = [
     path('music/', include('exam.main.urls.music_urls')),
     path('track/', include('exam.main.urls.track_urls')),
     path('comment/', include('exam.main.urls.comment_urls')),
-    path('accounts/', include('exam.auth_app.urls')),
+    path('profile/', include('exam.auth_app.urls')),
+
+    path('login/', UserLoginView.as_view(), name='login'),
+
 ]

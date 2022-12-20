@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
-
 {% block page_content %}
+
+    {# Header #}
     <h1 class='text-center'>
         {% if music %}
             All {{ genre }} Music
         {% else %}
-            No music of this genre yet uploaded
+            No {{ genre }} music yet uploaded
         {% endif %}
     </h1>
 
+    {# Elements #}
     <hr>
     {% if music %}
         <div style="margin: auto; width: 1190px">
@@ -37,11 +39,11 @@
                 {% endfor %}
             </div>
         </div>
-        {% else %}
+    {% else %}
+
         <div class=" row d-flex justify-content-center align-content-center">
-            <a href="{% url 'music add' %}" class="btn btn-lg btn-secondary row align-self-baseline">
-                Add
-            </a>
-</div>
+            <a href="{% url 'music add' %}" class="btn btn-lg btn-secondary row align-self-baseline">Add</a>
+        </div>
+
     {% endif %}
 {% endblock %}

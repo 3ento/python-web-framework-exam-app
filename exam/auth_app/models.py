@@ -4,9 +4,6 @@ from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from exam.auth_app.managers import AppUserManager
 
-# Create your models here.
-# UserModel = get_user_model()
-
 class AppUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(
         max_length=25,

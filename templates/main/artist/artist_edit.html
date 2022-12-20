@@ -2,9 +2,12 @@
 {% block page_content %}
 
     <h1 class="text-center">Edit Artist</h1>
+
     <div class="row">
         <div class="col-lg-3"></div>
+
         <div class="col-lg-6" style="text-align: center">
+             <hr>
             <form method="post" action="{% url 'artist edit' artist.id %}">
                 {% csrf_token %}
 
@@ -23,19 +26,19 @@
                 <br><button class="btn btn-primary mt-2" type="submit">Edit</button>
             </form>
         </div>
-        <div class="col-lg-3"></div>
+
     </div>
 
-    <script>
-        function notEmpty() {
+<script>
+    function notEmpty() {
 
-          let e = document.getElementById("id_picture");
-          document.getElementById('cover-art').src = e.value;
+      let e = document.getElementById("id_picture");
+      document.getElementById('cover-art').src = e.value;
 
-        }
-        notEmpty()
+    }
+    notEmpty()
 
-        document.getElementById("id_picture").onchange = notEmpty;
-    </script>
+    document.getElementById("id_picture").onchange = notEmpty;
+</script>
 
 {% endblock %}

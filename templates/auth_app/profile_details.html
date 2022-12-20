@@ -1,97 +1,107 @@
 {% extends 'base.html' %}
 {% block page_content %}
+<div>
+    <div class="container mb-5" style="text-align: center">
 
+        {# Profile Picture #}
+        <img src="{{ profile.profile_picture }}" alt="profile pciture" style="width: 343px; height: 343px">
 
-    <div>
-        <div class="container mb-5" style="text-align: center">
-            <img src="{{ profile.profile_picture }}" alt="profile pciture" style="width: 343px; height: 343px">
-            <div class="d-inline p-2 w-50">
+        <div class="d-inline p-2 w-50">
 
-                <div class="container mb-5">
+            {# Main Container #}
+            <div class="container mb-5">
+
+                {# Badges #}
                 {% if profile.user.is_staff %}
-                    <div>
                         <img src="https://cdn-icons-png.flaticon.com/512/1356/1356698.png" alt="STAFF BADGE" title="staff badge" style="width: 25px; height: 25px; display: inline; object-fit: cover">
-                    </div>
                 {% endif %}
                 {% if profile.user.is_superuser %}
-                    <div>
                         <img src="https://cdn-icons-png.flaticon.com/512/1356/1356522.png" alt="MOD BADGE" title="moderator badge" style="width: 25px; height: 25px">
-                    </div>
                 {% endif %}
 
-                    {% if profile.last_name %}
-                        <h5><u>Name:</u> {{ profile.first_name }} {{ profile.last_name }}</h5>
-                    {% else %}
-                        <h5><u>Name:</u> {{ profile.first_name }}</h5>
+                {# Names #}
+                {% if profile.last_name %}
+                    <h5><u>Name:</u> {{ profile.first_name }} {{ profile.last_name }}</h5>
+                {% else %}
+                    <h5><u>Name:</u> {{ profile.first_name }}</h5>
+                {% endif %}
+
+                {# Pronouns #}
+                <h5><u>Pronouns:</u> {{ profile.pronouns }}</h5>
+
+                {# Description #}
+                {% if profile.description %}
+                    <h5><u>Description:</u>
+                        <br>{{ profile.description|linebreaks }}</h5>
+                {% endif %}
+
+                {# Following #}
+                <a class="mt-2">Following: {{ count }}</a>
+
+                    {# Dropdown menu to list the followed artistis #}
+                    {% if count != 0 %}
+                        <details>
+                        <summary>Show</summary>
+                        <ul style="padding-left: 15.5px">
+                            {% for el in followed_artists %}
+                                <li><a href="{% url 'artist details' el.id %}">{{ el.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                        </details>
                     {% endif %}
 
-                    {% if profile.pronouns %}
-                        <h5><u>Pronouns:</u> {{ profile.pronouns }}</h5>
-                    {% endif %}
-
-                    {% if profile.description %}
-                        <h5><u>Description:</u>
-                            <br>{{ profile.description|linebreaks }}</h5>
-                    {% endif %}
-
-                </div>
-                  <a class="mt-2">Following: {{ count }}</a>
-            {% if count != 0 %}
-                    <details>
-                    <summary>Show</summary>
-                    <ul style="padding-left: 15.5px">
-                        {% for el in followed_artists %}
-                            <li><a href="{% url 'artist details' el.id %}">{{ el.name }}</a></li>
-                        {% endfor %}
-                    </ul>
-                    </details>
-            {% endif %}
-            <br>
+                {# Moderation #}
+                <br>
                 {% if is_owner or current_user.is_superuser %}
                       <a href="{% url 'profile_edit' profile.user_id %}" class="btn btn-primary">Edit</a>
-                      <a href="{% url 'delete profile' profile.user_id %}" class="btn btn-danger">Delete</a>
+                    <a href="{% url 'delete profile' profile.user_id %}" class="btn btn-danger">Delete</a>
                 {% endif %}
                 {% if current_user.is_superuser and not is_owner %}
                     <a href="{% url 'profile_user_edit' profile.user_id %}" class="btn btn-danger">Modify user permissions</a>
                 {% endif %}
+
             </div>
         </div>
+    </div>
 
-        {% if saved_songs %}
-            <div style="margin: auto; width: 1190px">
-                <h2>Saved songs({{ saved_songs.count }}): </h2>
-                <hr>
+    {# Saved songs container #}
+    {% if saved_songs %}
+        <div style="margin: auto; width: 1190px">
+            <h2>Saved songs({{ saved_songs.count }}): </h2><hr>
 
-                <div class="row mb-5">
-                    {% for el in saved_songs %}
-                        <div id="card-ml-3-mb-3" class="card ml-3 mb-3">
-                            <!-- Image -->
-                            <div class="container">
-                                <img src="{{ el.link }}" alt="Cover Art" id="cover-art" class="image">
-                                <div class="middle">
-                                    <a href="{% url 'music details' el.id %}" class="btn btn-primary">See details</a>
-                                </div>
+            <div class="row mb-5">
+                {% for el in saved_songs %}
+                    <div id="card-ml-3-mb-3" class="card ml-3 mb-3">
+
+                        {# Cover art #}
+                        <div class="container">
+                            <img src="{{ el.link }}" alt="Cover Art" id="cover-art" class="image">
+                            <div class="middle">
+                                <a href="{% url 'music details' el.id %}" class="btn btn-primary">See details</a>
                             </div>
-                            <div class="card-body">
-                                <h4 class="card-text">{{ el.title }}</h4>
-                                <a>{{ el.type }} by </a><a href="{% url 'artist details' el.artist.id %}" class="card-subtext">{{ el.artist }}</a>
-                                <hr>
-                                <details>
-                                        <summary style="list-style-type: none; ">{{ el.description|truncatechars:100 }}</summary>
-                                        <li style="list-style-type: ''">{{ el.show_more_description}}</li>
-                                </details>
-                            </div>
+                        </div>
+
+                        {# Body #}
+                        <div class="card-body">
+                            <h4 class="card-text">{{ el.title }}</h4>
+                            <a>{{ el.type }} by </a><a href="{% url 'artist details' el.artist.id %}" class="card-subtext">{{ el.artist }}</a>
+                            <hr>
+                            <details>
+                                    <summary style="list-style-type: none; ">{{ el.description|truncatechars:100 }}</summary>
+                                    <li style="list-style-type: ''">{{ el.show_more_description}}</li>
+                            </details>
+                        </div>
+
                     </div>
                 {% endfor %}
             </div>
 
-
-            </div>
-        {% else %}
-            <div class="container mb-5" style="padding-top: 25px; text-align: center">
-                <p>This user doesn't have any saved music yet.</p>
-            </div>
-        {% endif %}
-    </div>
+        </div>
+    {% else %}
+        <div class="container mb-5" style="padding-top: 25px; text-align: center">
+            <p>This user doesn't have any saved music yet.</p>
+        </div>
+    {% endif %}
+</div>
 
 {% endblock %}
