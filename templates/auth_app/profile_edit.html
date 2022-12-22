@@ -8,7 +8,7 @@
     <div class="col-lg-6">
         <form method="post" action="{% url 'profile_edit' profile.user_id %}">
 
-            <img id="cover-art" src="{{ profile.profile_picture }}" style="width: 90px; height: 90px; object-fit: cover" alt="Photo description">
+            <img id="cover-art" src="{{ profile.profile_picture }}" style="width: 90px; height: 90px; object-fit: cover" alt="">
             <br>
             {{ form }}
             {% csrf_token %}

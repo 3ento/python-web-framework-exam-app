@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 {% block page_content %}
 
-    <h1 class="text-center">Edit Your Profile</h1>
+    <h1 class="text-center">Edit Your Profile</h1><hr>
     <div class="row">
         <div class="col-lg-3"></div>
         <div class="col-lg-6">
-            <form method="post" action="{% url 'profile_user_edit' appuser.id %}">
+            <form method="post" action="{% url 'profile_user_edit' appuser.id %}" style="text-align: center">
 
-                {{ form }}
+                <h5>Make user a moderator? (has full CRUD permissions over anything in the database & access to the admin panel)</h5>
+                {{ form.is_superuser }}
+
+                <h5>Make user Staff? (has full CRUD permissions over uploaded content)</h5>
+                {{ form.is_staff }}
                 {% csrf_token %}
 
                 <button class="btn btn-primary mt-2" type="submit">Edit</button>

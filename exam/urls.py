@@ -20,15 +20,14 @@ from exam.auth_app.views import UserLoginView
 from exam.main.views.core_views import HomeView
 
 urlpatterns = [
-    path('', HomeView.as_view(), name='home'),
+
     path('admin/', admin.site.urls),
+    path('', HomeView.as_view(), name='home'),
     path('artist/', include('exam.main.urls.artist_urls')),
     path('dashboard/', include('exam.main.urls.dashboard_urls')),
     path('music/', include('exam.main.urls.music_urls')),
     path('track/', include('exam.main.urls.track_urls')),
     path('comment/', include('exam.main.urls.comment_urls')),
-    path('profile/', include('exam.auth_app.urls')),
-
-    path('login/', UserLoginView.as_view(), name='login'),
+    path('accounts/', include('exam.auth_app.urls')),
 
 ]

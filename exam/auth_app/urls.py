@@ -3,6 +3,8 @@ from exam.auth_app.views import UserLoginView, ProfileDelete, UserEdit
 from exam.auth_app.views import ProfileDetails, ProfileCreate, ProfileEdit, ProfileLogOut
 
 urlpatterns = (
+    path('login/', UserLoginView.as_view(), name='login'),
+
     path('logout', ProfileLogOut.as_view(), name='profile_logout'),
     path('create/', ProfileCreate.as_view(), name='profile_create'),
     path('<int:pk>', ProfileDetails.as_view(), name='profile_details'),

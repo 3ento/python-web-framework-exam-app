@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% block page_content %}
-    <h1 class="text-center">Add Music</h1><hr>
+    <div style="text-align: center">
+        <h1 class="text-center">Add Music</h1>
+        {% if form.errors %}
+                {{ form.errors }}
+                {% endif %}
+        <hr>
+    </div>
 
         <div style="text-align: center">
             <form method="post" action="{% url 'music add artist specific' artist_id %}">
