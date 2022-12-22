@@ -60,7 +60,7 @@
 
             {# Tracks #}
             {% if music.type != "Single" %}
-                    <a class="mt-2">Tracks:</a>
+                    <a class="mt-2">Tracks({{ tracks.count }}):</a>
                 <ul style="padding-left: 15px">
                 {% for el in tracks %}
                     <li class="mt-2"><a href="{% url 'track details' el.id %}">{{ el.title }}</a></li>

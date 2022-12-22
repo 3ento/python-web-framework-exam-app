@@ -46,7 +46,8 @@ class ProfileDetails(DetailView):
             'count': len(following),
             'saved_songs': saved,
             'followed_artists': following,
-            'current_user': self.request.user
+            'current_user': self.request.user,
+            'saved_songs_count': len(saved),
         })
 
         return context
