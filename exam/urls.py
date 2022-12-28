@@ -15,8 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
-from exam.auth_app.views import UserLoginView
 from exam.main.views.core_views import HomeView
 
 urlpatterns = [
@@ -31,3 +29,5 @@ urlpatterns = [
     path('accounts/', include('exam.auth_app.urls')),
 
 ]
+
+handler404 = "exam.main.views.core_views.handle404"

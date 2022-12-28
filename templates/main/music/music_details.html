@@ -116,7 +116,11 @@
 
                 <img src="{{ el.user.profile.profile_picture }}" alt="user profile pic" width="25" height="25"/>
                 <a href="{% url 'profile_details' el.user_id %}">{{ el.user.username }}</a>
+
+                {% if el.user.id == current_user.id %}
                 <a href="{% url 'edit comment' el.id %}">Edit</a>/<a href="{% url 'delete comment' el.id %}" style="color: red">Delete</a>
+                {% endif %}
+
                 <h3>{{ el.body }}</h3>
                 <h6 style="font-style: italic">Rating: {{ el.rating }}/10</h6>
                 <br>

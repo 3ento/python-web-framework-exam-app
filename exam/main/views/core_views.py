@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
 
 
@@ -16,3 +16,6 @@ class HomeView(TemplateView):
             return redirect('dashboard music')
 
         return super().dispatch(request, *args, **kwargs)
+
+def handle404(request, exception):
+    return render(request, "404.html")
